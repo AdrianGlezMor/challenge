@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width">
+            <title>Encriptador</title>
+            <link rel="stylesheet" href="reset.css">
+            <link rel="stylesheet" href="style.css">
+            <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <main class="area">
+            <div class="logo">
+                <img src="Imagenes/Logo.png" alt="Logotipo Alura">
+            </div>  
+            <div class="input-botones">
+                <textarea cols="100" rows="10" id="input-user" placeholder="Ingrese el texto aqui"></textarea>          
+                <p class="advertencia">Solo letras minúsculas y sin acentos</p>
+                <input type="button" onclick="traductor()" value="Codificar" class="boton-codificar">
+                <input type="button" onclick="desencriptar()" value="Decodificar" class="boton-decodificar">
+            </div>
+            <div class="cuadro-decoder">
+                <textarea cols="100" rows="10" id="text-decoder" readonly="readonly"></textarea>
+                <div class="datos-cuadro">
+                    <img src="Imagenes/Muñeco.png" class="obj1">
+                    <h2 class="obj2">Ningún mensaje fue encontrado</h2>
+                    <p class="obj3">Ingresa el texto que desees encriptar o desencriptar.</p>
+                </div>
+                <div>
+                    <input type="button" onclick="copiar()" value="Copiar" class="boton-copiar">
+                </div>
+            </div>         
+        </main>
+        <script>
+            const imagen = document.querySelector(".obj1");
+            const text1 = document.querySelector(".obj2");
+            const text2 = document.querySelector(".obj3");
+            const boton = document.querySelector(".boton-copiar");
+            boton.style.display = "none" ;
+            function traductor() {
+                if (document.getElementById("input-user").value.length==0) {
+
+                }else{                
+                    imagen.style.display = "none" ;
+                    text1.style.display = "none" ;
+                    text2.style.display = "none" ;
+                    boton.style.display = "block" ;
+
+                    var textoUser = document.getElementById("input-user").value;
+                    var cambios = {a:"ai",e:"enter",i:"imes",o:"ober",u:"ufat"};
+                                
+                    textoUser = textoUser.replace(/a|e|i|o|u/g, function(matched){
+                        return cambios[matched];
+                    });
+                    document.getElementById("text-decoder").value = textoUser;
+                }
+           }
+           function desencriptar(){
+                var textoUser2 = document.getElementById("input-user").value;
+                var cambios2 = {ai:"a",enter:"e",imes:"i",ober:"o",ufat:"u"};
+                               
+                textoUser2 = textoUser2.replace(/ai|enter|imes|ober|ufat/g, function(matched){
+                    return cambios2[matched];
+                });
+                document.getElementById("text-decoder").value = textoUser2;
+           }
+           function copiar(){
+                var content = document.getElementById("text-decoder");
+                content.select();
+                document.execCommand("copy");
+           }
+
+        </script>
+        <footer>
+            <p>Creado por Adrián González - Alura challenge</p>
+        </footer>
+    </body>
+</html>
